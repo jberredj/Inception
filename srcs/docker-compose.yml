@@ -1,0 +1,19 @@
+version: "3"
+
+services:
+
+  nginx:
+    build: requirements/nginx/
+    container_name: nginx
+    expose:
+      - "9000/tcp"
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - external
+    # restart: always
+
+networks:
+  internal:
+  external:
