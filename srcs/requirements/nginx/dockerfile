@@ -11,5 +11,6 @@ COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 443 80
 
+# Dumb-init use as PID 1 Sig Handler
 ENTRYPOINT [ "/usr/bin/dumb-init", "--" ]
 CMD [ "nginx", "-g", "daemon off;" ]

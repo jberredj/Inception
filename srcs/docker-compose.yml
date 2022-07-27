@@ -5,15 +5,30 @@ services:
   nginx:
     build: requirements/nginx/
     container_name: nginx
-    expose:
-      - "9000/tcp"
+    # expose:
+    #   - "9000/tcp"
     ports:
       - "80:80"
       - "443:443"
     networks:
-      - external
-    # restart: always
+      - internal
+    volumes:
+      - "../volumes/wordpress:/var/www/html"
+    depends_on: 
+      - wordpress
+    restart: always
+
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    expose:
+      - "9000/tcp"
+      - "3306/tcp"
+    networks:
+      - internal
+    volumes:
+      - "../volumes/wordpress:/var/www/html"
+    restart: always
 
 networks:
   internal:
-  external:
