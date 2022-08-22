@@ -1,11 +1,14 @@
 FROM debian:buster
 
-RUN apt update && apt install php7.3 php7.3-fpm dumb-init -y
-RUN useradd nginx
+RUN apt update && apt install php7.3 php7.3-fpm dumb-init curl wget -y
+# RUN useradd nginx
 COPY tools/launch.sh /var/launch.sh
-COPY conf/php-fpm.conf /etc/php7.3/php-fpm.conf
-COPY conf/www.conf /etc/php7.3/php-fpm.d/www.conf
+# COPY conf/php-fpm.conf /etc/php7.3/php-fpm.conf
+# COPY conf/www.conf /etc/php7.3/php-fpm.d/www.conf
+COPY conf/www.conf /etc/php/7.3/fpm/pool.d
 RUN mkdir /run/php
+
+EXPOSE 9000
 
 # Dumb-init use as PID 1 Sig Handler
 ENTRYPOINT [ "/usr/bin/dumb-init", "--" ]
