@@ -2,13 +2,38 @@ version: "3"
 
 services:
 
+  mariadb:
+    build: requirements/mariadb/
+    container_name: mariadb
+    env_file: .env
+    expose:
+      - "3306/tcp"
+    volumes:
+      - "../volumes/mariadb:/var/lib/mysql"
+    networks:
+      - internal
+    restart: always
+
+  wordpress:
+    build: requirements/wordpress/
+    container_name: wordpress
+    env_file: .env
+    depends_on: 
+      - mariadb
+    expose:
+      - "9000/tcp"
+    networks:
+      - internal
+    volumes:
+      - "../volumes/wordpress:/var/www/html"
+    restart: always
+
   nginx:
     build: requirements/nginx/
     container_name: nginx
     # expose:
     #   - "9000/tcp"
     ports:
-      - "80:80"
       - "443:443"
     networks:
       - internal
@@ -16,18 +41,6 @@ services:
       - "../volumes/wordpress:/var/www/html"
     depends_on: 
       - wordpress
-    restart: always
-
-  wordpress:
-    build: requirements/wordpress/
-    container_name: wordpress
-    expose:
-      - "9000/tcp"
-      - "3306/tcp"
-    networks:
-      - internal
-    volumes:
-      - "../volumes/wordpress:/var/www/html"
     restart: always
 
 networks:
