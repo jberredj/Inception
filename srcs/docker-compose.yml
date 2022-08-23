@@ -31,8 +31,6 @@ services:
   nginx:
     build: requirements/nginx/
     container_name: nginx
-    # expose:
-    #   - "9000/tcp"
     ports:
       - "443:443"
     networks:
@@ -47,12 +45,14 @@ volumes:
   mariadb_volume:
     driver: local
     driver_opts:
+      type: none
       device: /home/jberredj/data/mariadb
       o: bind
   
   wordpress_volume:
     driver: local
     driver_opts:
+      type: none
       device: /home/jberredj/data/wordpress
       o: bind
 
