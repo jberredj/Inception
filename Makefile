@@ -20,11 +20,11 @@ clean-volumes:
 	rm -rf /home/jberredj/data/*
 
 clean-containers:
-	docker stop $(docker ps -qa); docker rm $(docker ps -qa);
-	docker rmi -f $(docker images -qa); docker volume rm $(docker volume ls -q);
-	docker network rm $(docker network ls -q) 2>/dev/null
+	docker stop $$(docker ps -qa); docker rm $$(docker ps -qa);
+	docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q);
+	docker network rm $$(docker network ls -q) 2>/dev/null
 
 hostname-set:
 	sudo echo "127.0.0.1 jberredj.42.fr" >> /etc/hosts
 
-.PHONY: all build up down force-build reload hostname-set
+.PHONY: all build up down force-build reload hostname-set clean-volumes clean-containers
