@@ -16,6 +16,9 @@ force-build:
 
 reload: down force-build up
 
+clean-volumes:
+	rm -rf /home/jberredj/data/*
+
 hostname-set:
 	sudo echo "127.0.0.1 jberredj.42.fr" >> /etc/hosts
 
