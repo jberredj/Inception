@@ -9,7 +9,7 @@ services:
     expose:
       - "3306/tcp"
     volumes:
-      - "/home/jberredj/data/mariadb:/var/lib/mysql"
+      - mariadb_volume:/var/lib/mysql
     networks:
       - internal
     restart: always
@@ -25,7 +25,7 @@ services:
     networks:
       - internal
     volumes:
-      - "/home/jberredj/data/wordpress:/var/www/html"
+      - wordpress_volume:/var/www/html
     restart: always
 
   nginx:
@@ -38,10 +38,23 @@ services:
     networks:
       - internal
     volumes:
-      - "/home/jberredj/data/wordpress:/var/www/html"
+      - wordpress_volume:/var/www/html
     depends_on: 
       - wordpress
     restart: always
+
+volumes:
+  mariadb_volume:
+    driver: local
+    driver_opts:
+      device: /home/jberredj/data/mariadb
+      o: bind
+  
+  wordpress_volume:
+    driver: local
+    driver_opts:
+      device: /home/jberredj/data/wordpress
+      o: bind
 
 networks:
   internal:
