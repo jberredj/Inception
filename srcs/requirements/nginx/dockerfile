@@ -6,7 +6,7 @@ RUN mkdir /etc/nginx/ssl
 RUN openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes \
         -out /etc/nginx/ssl/cert.pem \
         -keyout /etc/nginx/ssl/key.key \
-        -subj "/C=FR/ST=IDF/L=Paris/O=42Paris/OU=student/CN=jberred/EA=jberredj@student.42.fr/"
+        -subj "/C=FR/ST=IDF/L=Paris/O=42Paris/OU=student/CN=jberred"
 COPY conf/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 443 80
