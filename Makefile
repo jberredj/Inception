@@ -1,6 +1,6 @@
 NAME = inception
 
-all: build up
+all: create-volume-dir build up
 
 build:
 	docker-compose -f srcs/docker-compose.yml build
@@ -16,10 +16,15 @@ force-build:
 
 reload: down force-build up
 
-clean-volumes:
-	rm -rf /home/jberredj/data/*
+create-volume-dir:
+	mkdir -p /home/jberredj/data/wordpress
+	mkdir -p /home/jberredj/data/mariadb
 
-clean-containers:
+clean-volumes-content:
+	rm -rf /home/jberredj/data/wordpress/*
+	rm -rf /home/jberredj/data/mariadb/*
+
+fclean:
 	docker stop $$(docker ps -qa); docker rm $$(docker ps -qa);
 	docker rmi -f $$(docker images -qa); docker volume rm $$(docker volume ls -q);
 	docker network rm $$(docker network ls -q) 2>/dev/null
@@ -27,4 +32,4 @@ clean-containers:
 hostname-set:
 	sudo echo "127.0.0.1 jberredj.42.fr" >> /etc/hosts
 
-.PHONY: all build up down force-build reload hostname-set clean-volumes clean-containers
+.PHONY: all build up down force-build reload hostname-set clean-volumes-content fclean create-volume-dir
