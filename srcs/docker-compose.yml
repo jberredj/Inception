@@ -9,7 +9,7 @@ services:
     expose:
       - "3306/tcp"
     volumes:
-      - "../volumes/mariadb:/var/lib/mysql"
+      - "/home/kojiki/data/mariadb:/var/lib/mysql"
     networks:
       - internal
     restart: always
@@ -25,7 +25,7 @@ services:
     networks:
       - internal
     volumes:
-      - "../volumes/wordpress:/var/www/html"
+      - "/home/kojiki/data/wordpress:/var/www/html"
     restart: always
 
   nginx:
@@ -38,7 +38,7 @@ services:
     networks:
       - internal
     volumes:
-      - "../volumes/wordpress:/var/www/html"
+      - "/home/kojiki/data/wordpress:/var/www/html"
     depends_on: 
       - wordpress
     restart: always
