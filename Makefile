@@ -17,6 +17,7 @@ force-build:
 reload: down force-build up
 
 create-volume-dir:
+	mkdir -p /home/jberredj/data
 	mkdir -p /home/jberredj/data/wordpress
 	mkdir -p /home/jberredj/data/mariadb
 
